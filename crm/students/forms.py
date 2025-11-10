@@ -2,6 +2,12 @@ from django import forms
 
 from .models import Students,EducationChoices,DistrictChoices,CourseChoices,BatchChoices,TrainerChoices
 
+from course.models import Course
+
+from batch.models import Batch
+
+from trainer.models import Trainer
+
 import re
 
 class AddStudentForm(forms.ModelForm):
@@ -14,7 +20,7 @@ class AddStudentForm(forms.ModelForm):
 
         # fields = '__all__'
 
-        exclude = ['join_date','adm_num','uuid','active_status']
+        exclude = ['join_date','adm_num','uuid','active_status','profile']
 
         widgets = {
                      'first_name' : forms.TextInput(attrs={'class':'form-control'}),
@@ -41,11 +47,11 @@ class AddStudentForm(forms.ModelForm):
 
     district = forms.ChoiceField(choices=DistrictChoices.choices,widget=forms.Select(attrs={'class':'form-select'})) 
 
-    course = forms.ChoiceField(choices=CourseChoices.choices,widget=forms.Select(attrs={'class':'form-select'}))
+    course = forms.ModelChoiceField(queryset=Course.objects.all(),widget=forms.Select(attrs={'class':'form-select'}))
 
-    batch = forms.ChoiceField(choices=BatchChoices.choices,widget=forms.Select(attrs={'class':'form-select'}))  
+    batch = forms.ModelChoiceField(queryset=Batch.objects.all(),widget=forms.Select(attrs={'class':'form-select'}))  
 
-    trainer = forms.ChoiceField(choices=TrainerChoices.choices,widget=forms.Select(attrs={'class':'form-select'}))
+    trainer = forms.ModelChoiceField(queryset=Trainer.objects.all(),widget=forms.Select(attrs={'class':'form-select'}))
 
     def clean(self):
 

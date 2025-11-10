@@ -1,0 +1,61 @@
+{% extends 'base.html' %} 
+
+{% block section %}
+
+<section class="container">
+    <div class="page-inner">
+          <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Add New Batch</h4>
+    </div>
+    <div class="card-body">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- First Name & Last Name -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="first_name" class="form-label">Batch Name</label>
+            <!-- <input type="text" id="first_name" name="first_name" class="form-control" required> -->
+             {{form.name}}
+             
+
+          </div>
+          <div class="col-md-6">
+            <label for="last_name" class="form-label">Course</label>
+            <!-- <input type="text" id="last_name" name="last_name" class="form-control" required> -->
+             {{form.course}}
+          </div>
+        </div>
+
+        <!-- Admission No, Email & Contact -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="email" class="form-label">Start Date</label>
+            <!-- <input type="email" id="email" name="email" class="form-control" required> -->
+             {{form.start_date}}
+             {% if form.errors.start_date %}
+             <p class="fs-6 text-danger">{{form.errors.start_date.0}}</p>
+             {% endif %}
+          </div>
+          <div class="col-md-6">
+            <label for="contact_num" class="form-label">Trainers</label>
+            <!-- <input type="text" id="contact_num" name="contact_num" maxlength="12" class="form-control" required> -->
+             {{form.trainer}}
+             {% if form.errors.trainer %}
+             <p class="fs-6 text-danger">{{form.errors.trainer.0}}</p>
+             {% endif %}
+          </div>
+        </div>
+        <!-- Submit -->
+        <div class="text-end">
+          <button type="reset" class="btn btn-secondary">Reset</button>
+          <button type="submit" class="btn btn-success">Add Batch</button>
+        </div>
+      </form>
+    </div>
+  </div>
+    </div>
+</section>
+
+
+{% endblock %}
